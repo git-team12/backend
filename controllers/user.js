@@ -21,7 +21,7 @@ exports.register = async (req, res, next) => {
     } catch (error) {
         console.log(error);
         res.status(500).send('Server error');
-        console.log(req.body, req.body.password)
+        // console.log(req.body, req.body.password)
         next(error);
     }
 }

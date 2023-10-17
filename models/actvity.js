@@ -13,5 +13,5 @@ const activitySchema = mongoose.Schema({
     created_at: { type: Date, required: true },
     lastUpdate_at: { type: Date },
 })
-
-module.exports = mongoose.model('activities', activitySchema)
+const tb_activity = mongoose.model('activities', activitySchema)
+module.exports = tb_activity;
