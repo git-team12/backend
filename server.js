@@ -11,7 +11,7 @@ const connectServer = require('./config/db')
 dotenv.config()
 const app = express()
 
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 // use middleware
 app.use(express.json());
