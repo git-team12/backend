@@ -15,6 +15,7 @@ const userSchema = mongoose.Schema({
     height: { type: Number, required: true },
     weight: { type: Number, required: true },
     image: { public_id: { type: String }, url: { type: String } },
+    // image: { data: Buffer, contentType: String },
     register_at: { type: Date },
     update_at: { type: Date },
 })

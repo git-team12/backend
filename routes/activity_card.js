@@ -1,12 +1,13 @@
 const express = require('express')
 const router = express.Router();
 // import controller
-const { login,register,update,deleteID,test} = require('../controllers/user')
+// const { login,register,update,deleteID,test} = require('../controllers/user')
 
 
 // router.get('/',test)
-router.post('/login',login)
-router.post('/register',register)
+// router.post('/create',login)
+// router.post('/edit',register)
+// router.post('/delete',register)
 // router.put('/user/:id',update)
 // router.delete('/user/:id',deleteID)
 

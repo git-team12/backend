@@ -1,11 +1,12 @@
 const tb_user = require('../models/users')
 const bcrypt = require('bcrypt')
 const tokens = require('../utils/token.js')
-
+const cloudinary  = require('../utils/cloudinary.js')
 
 exports.test = async (req, res) => {
     res.send("User is connect")
 }
+
 
 exports.register = async (req, res, next) => {
     try {
@@ -13,22 +14,40 @@ exports.register = async (req, res, next) => {
         const hasspass = bcrypt.hashSync(
             req.body.password, +process.env.SALT_ROUND
         );
+        // const image = req.file;
+        const image = req.body.image;
+        const username = req.body.username
 
-        const new_user = { ...req.body, register_at, password: hasspass };
+        const result = await cloudinary.uploader.upload(image, {
+            folder: 'react-image',
+            public_id: username,
+            resource_type: 'auto'
+        })
+        const imageUrl = result.secure_url
 
+        const new_user = {
+            ...req.body,
+            register_at,
+            password: hasspass,
+            image: {
+                public_id: username ,
+                url: imageUrl,
+            },
+        };
         await tb_user.create(new_user);
-        res.status(201).send('create user successful')
+        // console.log(new_user)
+        res.status(201).send('create user successful');
     } catch (error) {
         console.log(error);
         res.status(500).send('Server error');
-        // console.log(req.body, req.body.password)
         next(error);
     }
 }
-exports.login = async (req,res,next) => {
+
+exports.login = async (req, res, next) => {
     try {
         const { username, password } = req.body
-        // console.log(username, password)
+        console.log(req.body)
 
         if (!username || !password) {
             // console.log('User fot found')
@@ -77,7 +96,10 @@ exports.login = async (req,res,next) => {
 
 exports.update = async (req, res) => {
     try {
-        res.send('Hello update')
+        // res.send('Hello update')
+        const user_id = req.users._id;
+
+        if (req.body.username) { }
 
     } catch (error) {
         console.log(error);
